@@ -1,0 +1,51 @@
+{
+  "name": "close",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://m.vk.com/app7968155",
+  "dependencies": {
+    "@2gis/mapgl": "^1.18.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "@vkontakte/icons": "^1.124.0",
+    "@vkontakte/vk-bridge": "^2.4.8",
+    "@vkontakte/vkui": "^4.17.0",
+    "cross-env": "^7.0.3",
+    "dynamics.js": "^1.1.5",
+    "mapbox-gl": "^1.9.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-map-gl": "^6.1.17",
+    "react-scripts": "4.0.3",
+    "react-vk": "^5.0.2",
+    "socket.io": "^4.2.0",
+    "socket.io-client": "^4.2.0",
+    "styled-components": "^5.3.1",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start NODE_ENV=development",
+    "build": "react-scripts build",
+    "test": "react-scripts start",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
