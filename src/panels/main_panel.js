@@ -6,18 +6,11 @@ import bridge from "@vkontakte/vk-bridge";
 import dynamics from "dynamics.js";
 import {
   Panel,
-  PanelHeader,
-  Group,
-  HorizontalScroll,
   Avatar,
-  HorizontalCell,
-  Header,
   FixedLayout,
   Spinner,
-  TabsItem,
-  Tabs,
   Snackbar,
-  Placeholder,
+  SubnavigationButton,
 } from "@vkontakte/vkui";
 import mapboxgl from "mapbox-gl";
 import {
@@ -25,6 +18,7 @@ import {
   Icon28LocationMapOutline,
   Icon36AdvertisingOutline,
   Icon16Location,
+  Icon24Report,
 } from "@vkontakte/icons";
 
 import { createMarker } from "../functions";
@@ -114,6 +108,8 @@ const MainPanel = ({
   info,
   setInfo,
   loadGeo,
+  error,
+  setError,
   setLoadGeo,
 }) => {
   const [peoples, SetPeoples] = useState([]);
@@ -191,7 +187,7 @@ const MainPanel = ({
       src: "https://sun9-20.userapi.com/t9YgK6pARK4PHv6ESD3OsUL0RIqiWe5QFM49Yg/xVdW7mK6Abs.jpg",
       className: "buildings",
       map: map.current,
-      lng: 30.23,
+      lng: 30.33,
       lat: 59.93,
       setInfo: setInfo,
       func: setModal,
@@ -212,16 +208,20 @@ const MainPanel = ({
 
   useEffect(() => {
     bridge.subscribe(({ detail: { type, data } }) => {
-      if (type == "VKWebAppGeodataFailed") {
+      console.log(type);
+      console.log(data);
+
+      if (
+        type == "VKWebAppGeodataFailed" ||
+        type == "VKWebAppGetGeodataFailed" ||
+        (type == "VKWebAppGetGeodataResult" && !data.available) ||
+        (type == "VKWebAppGetGeodataResult" && !data.lat)
+      ) {
         //setLoading(false);
-        ErrorBar("Включи местоположение, мы всё равно знаем где ты.");
-        if (Date.now() - startAnimation < 500) {
-          setTimeout(() => {
-            animate_button_back();
-          }, 500 - (Date.now() - startAnimation));
-        } else {
-          animate_button_back();
-        }
+
+        ErrorBar(
+          "Включите местоположение на устройстве, чтобы мы смогли вас найти."
+        );
       }
     });
   }, []);
@@ -235,7 +235,20 @@ const MainPanel = ({
       />
 
       <FixedLayout vertical="bottom">
+        <SubnavigationButton
+          selected
+          before={<Icon28LocationMapOutline width={24} height={24} />}
+          style={{
+            marginTop: "12px",
+            marginLeft: "8px",
+            position: "absolute",
+          }}
+        >
+          0/10 Точек
+        </SubnavigationButton>
+
         <IconButton
+          hasActive={false}
           style={{
             backgroundColor: !loadGeo ? "var(--accent)" : "#000000b8",
             marginBottom: "8px",
@@ -248,6 +261,8 @@ const MainPanel = ({
           children={
             !loadGeo ? (
               <Icon16Location width={24} height={24} fill={"white"} />
+            ) : error ? (
+              <Icon24Report fill={"white"} />
             ) : (
               <Spinner
                 size="small"

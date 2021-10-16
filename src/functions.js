@@ -35,12 +35,21 @@ function createMarker({
         text,
         src,
         goBack: { center: center, zoom: zoom },
+        center: center,
       });
     }
-    map.flyTo({
-      center: [lng, lat],
-      zoom: 15,
-    });
+    if (className == "buildings") {
+      map.flyTo({
+        center: [lng, lat - 0.003 / (812 / window.innerHeight)],
+        zoom: 15,
+      });
+    } else {
+      map.flyTo({
+        center: [lng, lat],
+        zoom: 15,
+      });
+    }
+
     if (func) {
       func(arg);
     }
