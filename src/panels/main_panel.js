@@ -12,104 +12,61 @@ import {
   Snackbar,
   SubnavigationButton,
 } from "@vkontakte/vkui";
-import mapboxgl from "mapbox-gl";
+
 import {
   Icon20CancelCircleFillRed,
   Icon28LocationMapOutline,
   Icon36AdvertisingOutline,
+  Icon24TargetOutline,
   Icon16Location,
   Icon24Report,
+  Icon28BankOutline,
+  Icon28CancelCircleFillRed,
+  Icon28CommentCircleFillGreen,
+  Icon28CheckCircleFill,
 } from "@vkontakte/icons";
-
+import mapboxgl from "mapbox-gl";
 import { createMarker } from "../functions";
+import generateBuildings from "../buildings";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWl0dXJza3kiLCJhIjoiY2t1Mm1rODBoMnNlejJzcW56MnJ6dmFzOSJ9.czgQtgAZPb81wq1ahUZmgQ";
-let startAnimation;
-function animate_button_back() {
-  let el = document.getElementById("but");
-  if (el) {
-    dynamics.animate(
-      el,
-      {
-        translateY: 0,
-      },
-      {
-        type: dynamics.spring,
-        duration: 2000,
-        frequency: 166,
+opacity();
+
+function opacity() {
+  if (window?.timeout > 0) {
+    window.timeout -= 1;
+  } else {
+    let obj = document.getElementById("yes");
+    if (obj) {
+      if (obj.style.opacity && obj.style.opacity > 0) {
+        document.getElementById("yes").style.opacity -= 0.08;
       }
-    );
-  }
-  eldiv("div");
-  eldiv("div2");
-  function eldiv(id) {
-    let el = document.getElementById(id);
-    if (el) {
-      dynamics.animate(
-        el,
-        {
-          opacity: id == "div" ? 0.7 : 0.5,
-          scale: 1,
-        },
-        {
-          type: dynamics.easeInOut,
-          duration: 500,
-          frequency: 166,
-        }
-      );
+    }
+    let obj2 = document.getElementById("no");
+    if (obj2) {
+      if (obj2.style.opacity && obj2.style.opacity > 0) {
+        document.getElementById("no").style.opacity -= 0.08;
+      }
     }
   }
-}
-function animate_button() {
-  let el = document.getElementById("but");
-  if (el) {
-    dynamics.animate(
-      el,
-      {
-        translateY: -100,
-      },
-      {
-        type: dynamics.easeInOut,
-        duration: 350,
-      }
-    );
-  }
-  eldiv("div");
-  eldiv("div2");
 
-  function eldiv(id) {
-    let el = document.getElementById(id);
-    if (el) {
-      dynamics.animate(
-        el,
-        {
-          opacity: 0,
-          scale: 1.5,
-        },
-        {
-          type: dynamics.easeInOut,
-          duration: 400,
-        }
-      );
-    }
-  }
+  requestAnimationFrame(opacity);
 }
-
 const MainPanel = ({
   setActivePanel,
-  socket,
-  theme,
   setModal,
   map,
   lng,
   lat,
-  zoom,
-  info,
+  storage,
   setInfo,
   loadGeo,
   error,
-  setError,
+
+  mapContainer,
+  activePanel,
+  goNext,
   setLoadGeo,
 }) => {
   const [peoples, SetPeoples] = useState([]);
@@ -117,7 +74,30 @@ const MainPanel = ({
   const [snackbar, setSnackbar] = useState(null);
 
   //maps
-  const mapContainer = useRef(null);
+  let procent = 0;
+  for (let key in storage) {
+    if (storage[key] == "complete") {
+      procent += 20;
+    }
+  }
+  useEffect(() => {
+    if (map.current || activePanel != "main") return;
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: "mapbox://styles/mapbox/streets-v11",
+      center: [lng, lat],
+      zoom: 12,
+      maxZoom: 20,
+      minZoom: 8,
+    });
+    let buildings = generateBuildings({ map, setInfo, setModal, goNext });
+    for (let i in buildings) {
+      if (storage[buildings[i].id] == "complete") {
+        buildings[i].complete = true;
+      }
+      createMarker(buildings[i]);
+    }
+  });
 
   const normalize_distance = (distance) => {
     let res = "";
@@ -150,67 +130,26 @@ const MainPanel = ({
       </Snackbar>
     );
   }
+  function InfoBar(text) {
+    if (snackbar) return;
+    setSnackbar(
+      <Snackbar
+        onClose={() => setSnackbar(null)}
+        before={
+          <Avatar size={24}>
+            <Icon28CommentCircleFillGreen width={24} height={24} />
+          </Avatar>
+        }
+      >
+        {text}
+      </Snackbar>
+    );
+  }
 
-  const search = () => {
-    animate_button();
-    //setLoading(true);
-    startAnimation = Date.now();
-  };
   //map
-  useEffect(() => {
-    if (map.current) return; // initialize map only once
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v11",
-      center: [lng, lat],
-      zoom: zoom,
-      maxZoom: 15,
-      minZoom: 10,
-    });
-
-    createMarker({
-      src: "https://guideshop.ru/wp-content/uploads/2020/11/original.jpg",
-      className: "buildings",
-      map: map.current,
-      func: setModal,
-      arg: "info",
-      name: "Дворец Название",
-      subtitle: "Построен в 1234г.",
-      text: `Очень интересный текст описывающий дворец, Питер классный город, дожди
-      в нём меня совсем не беспокоят. Это просто рыбный текст. Рыбы - лучшие. 
-      Очень интересный текст описывающий дворец, Питер классный город, дожди
-      в нём меня совсем не беспокоят. Это просто рыбный текст. `,
-      setInfo: setInfo,
-    });
-
-    createMarker({
-      src: "https://sun9-20.userapi.com/t9YgK6pARK4PHv6ESD3OsUL0RIqiWe5QFM49Yg/xVdW7mK6Abs.jpg",
-      className: "buildings",
-      map: map.current,
-      lng: 30.33,
-      lat: 59.93,
-      setInfo: setInfo,
-      func: setModal,
-      arg: "info",
-      name: "Памятник культуры",
-      subtitle: "Построен в 1783г.",
-      text: `Очень интересный текст описывающий памятник, Питер классный город, дожди
-      в нём меня совсем не беспокоят. Это просто рыбный текст. Рыбы - лучшие. 
-      Очень интересный текст описывающий памятник, Питер классный город, дожди
-      в нём меня совсем не беспокоят. Это просто рыбный текст.  
-      Очень интересный текст описывающий памятник, Питер классный город, дожди
-      в нём меня совсем не беспокоят. Это просто рыбный текст. Рыбы - лучшие. 
-      Очень интересный текст описывающий памятник, Питер классный город, дожди
-      в нём меня совсем не беспокоят. Это просто рыбный текст.`,
-      setInfo: setInfo,
-    });
-  });
 
   useEffect(() => {
     bridge.subscribe(({ detail: { type, data } }) => {
-      console.log(type);
-      console.log(data);
-
       if (
         type == "VKWebAppGeodataFailed" ||
         type == "VKWebAppGetGeodataFailed" ||
@@ -234,8 +173,52 @@ const MainPanel = ({
         style={{ height: window.innerHeight + "px" }}
       />
 
-      <FixedLayout vertical="bottom">
+      <FixedLayout vertical="bottom" style={{ overflow: "visible" }}>
+        <IconButton
+          onClick={() => {
+            map.current.flyTo({
+              center: [30.317488, 59.950186],
+              zoom: 12,
+            });
+          }}
+          style={{
+            marginLeft: window.innerWidth / 2 - 30 + "px",
+            position: "absolute",
+          }}
+        >
+          <body
+            style={{
+              marginTop: "-24px",
+              backgroundColor: "#0000006e",
+              borderRadius: "100px",
+              width: "70px",
+              height: "70px",
+            }}
+          >
+            <Icon28BankOutline
+              style={{
+                marginLeft: "10px",
+                marginTop: "10px",
+                position: "absolute",
+              }}
+              fill={"white"}
+              width={50}
+              height={50}
+            />
+          </body>
+        </IconButton>
         <SubnavigationButton
+          onClick={() => {
+            if (procent == 100) {
+              InfoBar(
+                "Вы успешно прошли квест! Вы большой(ая) молодец. Можете показать это сообщение вашему преподавателю или рассказать про приложение друзьям!"
+              );
+            } else {
+              InfoBar(
+                "Чтобы пройти квест, необходимо посетить все точки маршрута и правильно ответить на Quiz"
+              );
+            }
+          }}
           selected
           before={<Icon28LocationMapOutline width={24} height={24} />}
           style={{
@@ -244,7 +227,7 @@ const MainPanel = ({
             position: "absolute",
           }}
         >
-          0/10 Точек
+          {procent}%
         </SubnavigationButton>
 
         <IconButton
@@ -274,6 +257,28 @@ const MainPanel = ({
           }
         />
       </FixedLayout>
+      <body
+        id="yes"
+        style={{
+          position: "absolute",
+          opacity: "0",
+          marginLeft: window.innerWidth / 2 - 40 + "px",
+          marginTop: window.innerHeight / 3 + "px",
+        }}
+      >
+        <Icon28CheckCircleFill width={80} height={80} />
+      </body>
+      <body
+        id="no"
+        style={{
+          position: "absolute",
+          opacity: "0",
+          marginLeft: window.innerWidth / 2 - 40 + "px",
+          marginTop: window.innerHeight / 3 + "px",
+        }}
+      >
+        <Icon28CancelCircleFillRed width={80} height={80} />
+      </body>
       {snackbar}
     </Panel>
   );

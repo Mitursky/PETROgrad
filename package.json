@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^12.8.3",
     "@vkontakte/icons": "^1.124.0",
     "@vkontakte/vk-bridge": "^2.4.8",
-    "@vkontakte/vkui": "^4.17.0",
+    "@vkontakte/vkui": "^4.20.0",
     "cross-env": "^7.0.3",
     "dynamics.js": "^1.1.5",
     "eruda": "^2.4.1",

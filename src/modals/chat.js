@@ -19,34 +19,91 @@ import {
 } from "@vkontakte/vkui";
 import styled from "styled-components";
 import { useEffect, useState, Fragment } from "react";
-import { Icon24Cancel, Icon28LocationMapOutline } from "@vkontakte/icons";
+import {
+  Icon24Cancel,
+  Icon28LocationMapOutline,
+  Icon24LightbulbStarOutline,
+  Icon28ChecksOutline,
+} from "@vkontakte/icons";
 import React from "react";
 import "../css/ModalRoot.css";
 import { Socket } from "socket.io";
 import { tSEnumDeclaration } from "@babel/types";
 import "../css/ModalPageHeader.css";
+import { ModalMore } from "./more";
+import { ModalQuiz } from "./quiz";
+import { getNodeText } from "@testing-library/dom";
+import bridge from "@vkontakte/vk-bridge";
+
 let flyBack;
+let isDesktop =
+  window.location.search.split("vk_platform=")[1].split("&")[0] ==
+  "desktop_web";
 const ModalChat = ({
   modal,
   setModal,
   socket,
+  setActivePanel,
+  storage,
   text,
   setText,
-  platformSign,
+  setStorage,
   info,
+  setStorageData,
+  goBack,
   geodata,
   map,
+  goNext,
+  story,
+  setStory,
 }) => {
   const platform = usePlatform();
   const [msg, setMsg] = useState([]);
   const [UPD, setUPD] = useState();
   const [user, setUser] = useState({});
+  goBack = () => {
+    console.log("goback", story);
+    let current;
+    if (story.length == 0) {
+      console.log("close");
+      bridge.send("VKWebAppClose", {
+        status: "success",
+        payload: { name: "test" },
+      });
+    }
+    if (story[story.length - 2]) {
+      current = story[story.length - 2];
+      if (current.type == "modal") {
+        story.pop();
+        setStory([...story]);
+        setModal(current.name);
+      }
+    } else {
+      if (story[story.length - 1]) {
+        current = story[story.length - 1];
+        if (current.type == "modal") {
+          console.log("flyback");
+          story.pop();
+          setStory([...story]);
+          setModal(null);
+          flyBack();
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("popstate", goBack);
+    return function cleanup() {
+      window.removeEventListener("popstate", goBack);
+    };
+  });
+
   window.text = text;
   window.user = user;
 
   useEffect(() => {
     flyBack = () => {
-      console.log(info);
       if (info.goBack) {
         map.current.flyTo({
           center: info.goBack.center,
@@ -57,13 +114,15 @@ const ModalChat = ({
   });
 
   return (
-    <ModalRoot activeModal={modal}>
+    <ModalRoot
+      activeModal={modal}
+      onClose={() => {
+        goBack();
+        flyBack();
+      }}
+    >
       <ModalPage
         id="info"
-        onClose={() => {
-          setModal(null);
-          flyBack();
-        }}
         header={
           <ModalPageHeader
             left={
@@ -71,7 +130,7 @@ const ModalChat = ({
                 {(platform === ANDROID || platform === VKCOM) && (
                   <PanelHeaderButton
                     onClick={() => {
-                      setModal(null);
+                      goBack();
                       flyBack();
                     }}
                   >
@@ -85,7 +144,7 @@ const ModalChat = ({
                 {platform === IOS && (
                   <PanelHeaderButton
                     onClick={() => {
-                      setModal(null);
+                      goBack();
                       flyBack();
                     }}
                   >
@@ -95,7 +154,7 @@ const ModalChat = ({
               </Fragment>
             }
           >
-            Дворец
+            PETROград
           </ModalPageHeader>
         }
       >
@@ -106,6 +165,8 @@ const ModalChat = ({
             width={window.innerWidth + "px"}
             style={{
               objectFit: "cover",
+              marginTop: "48px",
+              borderRadius: "8px",
             }}
           />
 
@@ -123,50 +184,111 @@ const ModalChat = ({
               <Text
                 weight="regular"
                 style={{
-                  marginBottom: 16,
+                  marginBottom: 8,
                   fontSize: "20px",
                   lineHeight: "24px",
+                  whiteSpace: "pre-line",
                 }}
               >
                 {info.text}
               </Text>
+              <div
+                style={{
+                  display: "flex",
+                }}
+              >
+                <Button
+                  size="l"
+                  stretched
+                  onClick={() => {
+                    goNext({ type: "modal", name: "more" });
+                  }}
+                >
+                  Подробнее
+                </Button>
+              </div>
             </Group>
           </Div>
           <FixedLayout
             vertical="top"
             style={{
-              display: "flex",
               height: "48px",
               marginTop: "60px",
             }}
           >
-            <Button
-              size="l"
-              before={<Icon28LocationMapOutline width={24} height={24} />}
+            <div
               style={{
-                boxShadow: "0px 0px 10px 5px rgb(73 133 204 / 20%)",
-                marginLeft: 8 + "px",
-              }}
-              onClick={() => {
-                let a = document.createElement("a");
-                Object.assign(a, {
-                  href: `https://www.google.com/maps/dir/?api=1&origin=${
-                    geodata && geodata.lat
-                      ? geodata.lat + "," + geodata.long
-                      : ""
-                  }&destination=${info.center[1]},${
-                    info.center[0]
-                  }&zoom=20&travelmode=transit`,
-                  target: "_blank",
-                });
-                a.click();
+                display: "flex",
+                width: isDesktop ? "408px" : "100%",
+                marginTop: "-4px",
               }}
             >
-              Маршрут
-            </Button>
+              <Button
+                size="m"
+                stretched
+                before={<Icon28LocationMapOutline width={24} height={24} />}
+                style={{
+                  marginLeft: 8 + "px",
+                }}
+                onClick={() => {
+                  let a = document.createElement("a");
+                  Object.assign(a, {
+                    href: info.place_url,
+                    target: "_blank",
+                  });
+                  a.click();
+                }}
+              >
+                Google карты
+              </Button>
+
+              <Button
+                stretched
+                size="m"
+                mode={info.quiz ? "commerce" : "secondary"}
+                onClick={() => {
+                  if (info.quiz) {
+                    goNext({ type: "modal", name: "quiz" });
+                  }
+                }}
+                before={
+                  storage[info.id] == "complete" ? (
+                    <Icon28ChecksOutline width={24} height={24} />
+                  ) : (
+                    <Icon24LightbulbStarOutline width={24} height={24} />
+                  )
+                }
+                style={{
+                  marginLeft: 8 + "px",
+                  marginRight: 8 + "px",
+                }}
+              >
+                {info.quiz ? "Пройти Quiz" : "Quiz, уже скоро..."}
+              </Button>
+            </div>
           </FixedLayout>
         </body>
       </ModalPage>
+      <ModalMore
+        settlingHeight={100}
+        id="more"
+        setModal={setModal}
+        text={text}
+        goBack={goBack}
+        info={info}
+        map={map}
+      />
+      <ModalQuiz
+        id="quiz"
+        setStorage={setStorage}
+        storage={storage}
+        setModal={setModal}
+        text={text}
+        goBack={goBack}
+        info={info}
+        setStorageData={setStorageData}
+        map={map}
+      />
     </ModalRoot>
   );
 };
