@@ -258,28 +258,7 @@ const MainPanel = ({
           }
         />
       </FixedLayout>
-      <body
-        id="yes"
-        style={{
-          position: "absolute",
-          opacity: "0",
-          marginLeft: window.innerWidth / 2 - 40 + "px",
-          marginTop: window.innerHeight / 3 + "px",
-        }}
-      >
-        <Icon28CheckCircleFill width={80} height={80} />
-      </body>
-      <body
-        id="no"
-        style={{
-          position: "absolute",
-          opacity: "0",
-          marginLeft: window.innerWidth / 2 - 40 + "px",
-          marginTop: window.innerHeight / 3 + "px",
-        }}
-      >
-        <Icon28CancelCircleFillRed width={80} height={80} />
-      </body>
+
       {snackbar}
     </Panel>
   );

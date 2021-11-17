@@ -27,6 +27,8 @@ import {
   Icon28DoneOutline,
   Icon24Back,
   Icon24StoryOutline,
+  Icon28CheckCircleFill,
+  Icon28CancelCircleFillRed,
   Icon28ReplayOutline,
 } from "@vkontakte/icons";
 import React from "react";
@@ -47,6 +49,8 @@ let isDesktop =
   "desktop_web";
 function answer(ans, data) {
   document.getElementById("yes").style.opacity = 0;
+  document.getElementById("yes").zIndex = 10;
+  document.getElementById("no").zIndex = 10;
   document.getElementById("no").style.opacity = 0;
   if (ans == data.answer) {
     collect_right += 1;
@@ -210,6 +214,33 @@ const ModalQuiz = ({
         </ModalPageHeader>
       }
     >
+      <body
+        id="yes"
+        style={{
+          position: "absolute",
+          zIndex: "10",
+          opacity: "0",
+          pointerEvents: "none",
+          marginLeft: window.innerWidth / 2 - 40 + "px",
+          marginTop: "40%",
+        }}
+      >
+        <Icon28CheckCircleFill width={80} height={80} />
+      </body>
+      <body
+        id="no"
+        style={{
+          position: "absolute",
+          zIndex: "10",
+          opacity: "0",
+          pointerEvents: "none",
+          marginLeft: window.innerWidth / 2 - 40 + "px",
+          marginTop: "40%",
+        }}
+      >
+        <Icon28CancelCircleFillRed width={80} height={80} />
+      </body>
+
       <Group style={{ textAlign: "center" }}>
         <Gallery
           slideWidth="100%"
