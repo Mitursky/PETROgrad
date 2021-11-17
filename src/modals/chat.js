@@ -55,12 +55,13 @@ const ModalChat = ({
   map,
   goNext,
   story,
+  user,
   setStory,
 }) => {
   const platform = usePlatform();
   const [msg, setMsg] = useState([]);
   const [UPD, setUPD] = useState();
-  const [user, setUser] = useState({});
+
   goBack = () => {
     console.log("goback", story);
     let current;
@@ -219,8 +220,10 @@ const ModalChat = ({
             <div
               style={{
                 display: "flex",
-                width: isDesktop ? "408px" : "100%",
+                width: isDesktop ? "416px" : "100%",
                 marginTop: "-4px",
+                height: "42px",
+                backgroundColor: "white",
               }}
             >
               <Button
@@ -229,6 +232,7 @@ const ModalChat = ({
                 before={<Icon28LocationMapOutline width={24} height={24} />}
                 style={{
                   marginLeft: 8 + "px",
+                  marginBottom: "8px",
                 }}
                 onClick={() => {
                   let a = document.createElement("a");
@@ -261,6 +265,7 @@ const ModalChat = ({
                 style={{
                   marginLeft: 8 + "px",
                   marginRight: 8 + "px",
+                  marginBottom: "8px",
                 }}
               >
                 {info.quiz ? "Пройти Quiz" : "Quiz, уже скоро..."}
@@ -283,6 +288,7 @@ const ModalChat = ({
         setStorage={setStorage}
         storage={storage}
         setModal={setModal}
+        user={user}
         text={text}
         goBack={goBack}
         info={info}

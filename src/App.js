@@ -12,6 +12,7 @@ import { Icon20CancelCircleFillRed } from "@vkontakte/icons";
 import React from "react";
 import bridge from "@vkontakte/vk-bridge";
 import MainPanel from "./panels/main_panel.js";
+import ClosePanel from "./panels/close.js";
 import HelloPanel from "./panels/hello";
 import { View } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
@@ -54,6 +55,7 @@ function App() {
   const setStorageData = (key, value) => {
     bridge.send("VKWebAppStorageSet", { key: key, value: value });
   };
+  //setStorageData("hello", "false");
   //setStorageData("hello", "false");
 
   let goBack;
@@ -132,11 +134,17 @@ function App() {
         bridge.send("VKWebAppGetUserInfo");
 
         if (activePanel == "loading") {
-          console.log("load");
-          if (obj?.hello == "true") {
-            setActivePanel("main");
+          if (
+            window.location.search.split("vk_platform=")[1].split("&")[0] ==
+            "mobile_iphone"
+          ) {
+            setActivePanel("close");
           } else {
-            setActivePanel("hello");
+            if (obj?.hello == "true") {
+              setActivePanel("main");
+            } else {
+              setActivePanel("hello");
+            }
           }
         }
       }
@@ -178,6 +186,7 @@ function App() {
               storage={storage}
               setText={setText}
               geodata={geodata}
+              user={user}
               platformSign={platformSign}
               goBack={goBack}
               goNext={goNext}
@@ -188,6 +197,9 @@ function App() {
             />
           }
         >
+          <Panel id="close">
+            <ClosePanel />
+          </Panel>
           <MainPanel
             text={text}
             setText={setText}

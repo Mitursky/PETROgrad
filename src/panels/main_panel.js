@@ -188,10 +188,11 @@ const MainPanel = ({
         >
           <body
             style={{
-              marginTop: "-24px",
+              marginTop: "-48px",
               backgroundColor: "#0000006e",
               borderRadius: "100px",
               width: "70px",
+              position: "absolute",
               height: "70px",
             }}
           >

@@ -26,6 +26,7 @@ import {
   Icon24Cancel,
   Icon28DoneOutline,
   Icon24Back,
+  Icon24StoryOutline,
   Icon28ReplayOutline,
 } from "@vkontakte/icons";
 import React from "react";
@@ -37,13 +38,14 @@ import bad from "../img/bad.png";
 import ok from "../img/ok.png";
 import best from "../img/best.png";
 import "../css/ModalPageHeader.css";
+import background from "../img/story.png";
+import bridge from "@vkontakte/vk-bridge";
 let flyBack;
 let collect_right = 0;
 let isDesktop =
   window.location.search.split("vk_platform=")[1].split("&")[0] ==
   "desktop_web";
 function answer(ans, data) {
-  console.log(ans, data);
   document.getElementById("yes").style.opacity = 0;
   document.getElementById("no").style.opacity = 0;
   if (ans == data.answer) {
@@ -76,10 +78,73 @@ const ModalQuiz = ({
   setStorage,
   setStorageData,
   storage,
+  user,
 }) => {
   const platform = usePlatform();
-  const [user, setUser] = useState({});
+
   const [slideIndex, setSlideIndex] = useState(0);
+  const makeStory = () => {
+    const canvas = document.createElement("canvas");
+
+    if (!canvas.getContext) return;
+
+    canvas.height = 1920;
+    canvas.width = 1080;
+    const ctx = canvas.getContext("2d");
+
+    document.fonts.load('55pt "Times New Roman"').then(() => {
+      const img = new Image();
+      const ava = new Image();
+      ava.crossOrigin = "anonymous";
+      const circle = new Image();
+
+      ava.onload = () => {
+        ctx.drawImage(circle, 820, 600, 200, 200);
+        ctx.globalCompositeOperation = "source-in";
+
+        ctx.drawImage(ava, 820, 600, 200, 200);
+        ctx.globalCompositeOperation = "destination-over";
+
+        ctx.font = '55pt "Times New Roman Bold"';
+        ctx.fontWeight = "Bold";
+        ctx.lineHeight = "69px";
+
+        ctx.textAlign = "center";
+        ctx.textBaseline = "top";
+        ctx.fillStyle = "white";
+        ctx.fillText(
+          collect_right >= 5
+            ? "превосходно!"
+            : collect_right >= 4
+            ? "приемлемо"
+            : collect_right >= 2
+            ? "отвратно"
+            : "возмутительно!",
+          685,
+          820
+        );
+        ctx.drawImage(img, 0, 0);
+
+        bridge.send("VKWebAppShowStoryBox", {
+          background_type: "image",
+          blob: canvas.toDataURL(),
+          locked: true,
+          attachment: {
+            text: "go_to",
+            type: "url",
+            url: "https://vk.com/app7968155",
+          },
+        });
+      };
+      circle.onload = () => (ava.src = user.photo_200);
+      console.log(user);
+      img.onload = () =>
+        (circle.src =
+          "data:image/png;base64,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");
+
+      img.src = background;
+    });
+  };
   if (collect_right == 5) {
     document.getElementById(info.id).style.border =
       "solid 5px var(--button_commerce_background)";
@@ -90,7 +155,7 @@ const ModalQuiz = ({
     setStorageData(info.id, "complete");
   }
   window.text = text;
-  window.user = user;
+
   if (slideIndex == 0) {
     collect_right = 0;
   }
@@ -309,6 +374,20 @@ const ModalQuiz = ({
               style={{ marginTop: "25px", borderRadius: "16px" }}
             >
               Завершить
+            </Button>
+            <Button
+              size="m"
+              onClick={() => {
+                makeStory();
+              }}
+              before={<Icon24StoryOutline width="20" height="20" />}
+              style={{
+                marginTop: "25px",
+                borderRadius: "16px",
+                marginLeft: "8px",
+              }}
+            >
+              В историю
             </Button>
             <br />
             <Button

@@ -24,7 +24,7 @@ const HelloPanel = ({ setStorageData, setActivePanel }) => {
     <Panel id="hello">
       <Gallery
         slideWidth="100%"
-        style={{ height: window.innerHeight }}
+        style={{ height: window.innerHeight + "px" }}
         bullets="dark"
         slideIndex={slideIndex}
         onChange={(e) => {

@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.2aa6df3c.chunk.css",
-    "main.js": "/static/js/main.6a6eb2e7.chunk.js",
-    "runtime-main.js": "/static/js/runtime-main.e4c9264d.js",
+    "main.js": "/static/js/main.fe8d6257.chunk.js",
+    "runtime-main.js": "/static/js/runtime-main.c58c5861.js",
     "static/css/2.e0c11635.chunk.css": "/static/css/2.e0c11635.chunk.css",
-    "static/js/2.1af8eb86.chunk.js": "/static/js/2.1af8eb86.chunk.js",
-    "static/js/3.9a8dae69.chunk.js": "/static/js/3.9a8dae69.chunk.js",
+    "static/js/2.8ae4a52b.chunk.js": "/static/js/2.8ae4a52b.chunk.js",
+    "static/js/3.b7b849c8.chunk.js": "/static/js/3.b7b849c8.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.1af8eb86.chunk.js.LICENSE.txt": "/static/js/2.1af8eb86.chunk.js.LICENSE.txt",
+    "static/js/2.8ae4a52b.chunk.js.LICENSE.txt": "/static/js/2.8ae4a52b.chunk.js.LICENSE.txt",
     "static/media/bad.72cf85d1.png": "/static/media/bad.72cf85d1.png",
     "static/media/best.66183336.png": "/static/media/best.66183336.png",
     "static/media/kunst.215aac9c.png": "/static/media/kunst.215aac9c.png",
@@ -19,14 +19,15 @@
     "static/media/petrograd.304faa18.png": "/static/media/petrograd.304faa18.png",
     "static/media/quiz.301aad54.png": "/static/media/quiz.301aad54.png",
     "static/media/sad.4cc5ad6a.png": "/static/media/sad.4cc5ad6a.png",
+    "static/media/story.9036dec6.png": "/static/media/story.9036dec6.png",
     "static/media/verybad.515b91a3.png": "/static/media/verybad.515b91a3.png",
     "static/media/zdanie12.b2aacc30.png": "/static/media/zdanie12.b2aacc30.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.e4c9264d.js",
+    "static/js/runtime-main.c58c5861.js",
     "static/css/2.e0c11635.chunk.css",
-    "static/js/2.1af8eb86.chunk.js",
+    "static/js/2.8ae4a52b.chunk.js",
     "static/css/main.2aa6df3c.chunk.css",
-    "static/js/main.6a6eb2e7.chunk.js"
+    "static/js/main.fe8d6257.chunk.js"
   ]
 }
