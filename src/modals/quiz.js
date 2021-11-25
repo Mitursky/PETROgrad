@@ -29,6 +29,7 @@ import {
   Icon24StoryOutline,
   Icon28CheckCircleFill,
   Icon28CancelCircleFillRed,
+  Icon24ArrowRightSquareOutline,
   Icon28ReplayOutline,
 } from "@vkontakte/icons";
 import React from "react";
@@ -163,6 +164,24 @@ const ModalQuiz = ({
   if (slideIndex == 0) {
     collect_right = 0;
   }
+  // useEffect(() => {
+  //   const listener = (event) => {
+  //     if (event.code === "Enter" || event.code === "NumpadEnter") {
+  //       console.log("Enter key was pressed. Run your function.");
+  //       event.preventDefault();
+  //       answer(
+  //         document.getElementById("input" + slideIndex).value,
+  //         info.quiz[slideIndex]
+  //       );
+  //       setSlideIndex(slideIndex + 1);
+  //       // callMyFunction();
+  //     }
+  //   };
+  //   document.addEventListener("keydown", listener);
+  //   return () => {
+  //     document.removeEventListener("keydown", listener);
+  //   };
+  // });
 
   useEffect(() => {
     flyBack = () => {
@@ -303,11 +322,19 @@ const ModalQuiz = ({
                   ""
                 )}
                 {data.type == "write" ? (
-                  <FormItem style={{ width: "250px", margin: "auto" }}>
+                  <FormItem
+                    style={{
+                      width: "250px",
+                      margin: "auto",
+                      display: "flex",
+                      height: "40px",
+                    }}
+                  >
                     <Input placeholder="Ответ" id={"input" + index} />
                     <Button
                       size="m"
-                      style={{ marginTop: "8px", marginBottom: "8px" }}
+                      before={<Icon24ArrowRightSquareOutline />}
+                      style={{ marginLeft: "8px" }}
                       onClick={() => {
                         answer(
                           document.getElementById("input" + index).value,
@@ -315,9 +342,7 @@ const ModalQuiz = ({
                         );
                         setSlideIndex(slideIndex + 1);
                       }}
-                    >
-                      Ответить
-                    </Button>
+                    ></Button>
                   </FormItem>
                 ) : (
                   <FormItem

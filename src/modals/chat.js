@@ -215,6 +215,7 @@ const ModalChat = ({
             style={{
               height: "48px",
               marginTop: "60px",
+              width: "100%",
             }}
           >
             <div

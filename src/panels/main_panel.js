@@ -84,7 +84,7 @@ const MainPanel = ({
     if (map.current || activePanel != "main") return;
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v11",
+      style: "mapbox://styles/mitursky/ckw5dv4nm11ub14l0i2fpi03u",
       center: [lng, lat],
       zoom: 12,
       maxZoom: 20,

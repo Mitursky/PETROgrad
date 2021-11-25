@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.2aa6df3c.chunk.css",
-    "main.js": "/static/js/main.165c2ea8.chunk.js",
-    "runtime-main.js": "/static/js/runtime-main.c58c5861.js",
+    "main.js": "/static/js/main.46ac5223.chunk.js",
+    "runtime-main.js": "/static/js/runtime-main.4e9cee8c.js",
     "static/css/2.e0c11635.chunk.css": "/static/css/2.e0c11635.chunk.css",
-    "static/js/2.52d5f0b1.chunk.js": "/static/js/2.52d5f0b1.chunk.js",
-    "static/js/3.b7b849c8.chunk.js": "/static/js/3.b7b849c8.chunk.js",
+    "static/js/2.af8007b0.chunk.js": "/static/js/2.af8007b0.chunk.js",
+    "static/js/3.c516f306.chunk.js": "/static/js/3.c516f306.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.52d5f0b1.chunk.js.LICENSE.txt": "/static/js/2.52d5f0b1.chunk.js.LICENSE.txt",
+    "static/js/2.af8007b0.chunk.js.LICENSE.txt": "/static/js/2.af8007b0.chunk.js.LICENSE.txt",
     "static/media/bad.72cf85d1.png": "/static/media/bad.72cf85d1.png",
     "static/media/best.66183336.png": "/static/media/best.66183336.png",
     "static/media/kunst.215aac9c.png": "/static/media/kunst.215aac9c.png",
@@ -24,10 +24,10 @@
     "static/media/zdanie12.b2aacc30.png": "/static/media/zdanie12.b2aacc30.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.c58c5861.js",
+    "static/js/runtime-main.4e9cee8c.js",
     "static/css/2.e0c11635.chunk.css",
-    "static/js/2.52d5f0b1.chunk.js",
+    "static/js/2.af8007b0.chunk.js",
     "static/css/main.2aa6df3c.chunk.css",
-    "static/js/main.165c2ea8.chunk.js"
+    "static/js/main.46ac5223.chunk.js"
   ]
 }
