@@ -159,6 +159,53 @@ const ModalChat = ({
           </ModalPageHeader>
         }
       >
+        <Div
+          style={{
+            display: "flex",
+            position: "sticky",
+            top: 0,
+            backgroundColor: "white",
+            borderRadius: "0 0 8px 8px",
+            marginBottom: "8px",
+          }}
+        >
+          <Button
+            size="m"
+            stretched
+            before={<Icon28LocationMapOutline width={24} height={24} />}
+            onClick={() => {
+              let a = document.createElement("a");
+              Object.assign(a, {
+                href: info.place_url,
+                target: "_blank",
+              });
+              a.click();
+            }}
+            style={{ marginRight: "8px" }}
+          >
+            Google карты
+          </Button>
+
+          <Button
+            stretched
+            size="m"
+            mode={info.quiz ? "commerce" : "secondary"}
+            onClick={() => {
+              if (info.quiz) {
+                goNext({ type: "modal", name: "quiz" });
+              }
+            }}
+            before={
+              storage[info.id] == "complete" ? (
+                <Icon28ChecksOutline width={24} height={24} />
+              ) : (
+                <Icon24LightbulbStarOutline width={24} height={24} />
+              )
+            }
+          >
+            {info.quiz ? "Пройти Quiz" : "Quiz, уже скоро..."}
+          </Button>
+        </Div>
         <body>
           <img
             src={info.src}
@@ -166,7 +213,6 @@ const ModalChat = ({
             width={window.innerWidth + "px"}
             style={{
               objectFit: "cover",
-              marginTop: "48px",
               borderRadius: "8px",
             }}
           />
@@ -210,69 +256,6 @@ const ModalChat = ({
               </div>
             </Group>
           </Div>
-          <FixedLayout
-            vertical="top"
-            style={{
-              height: "48px",
-              marginTop: "60px",
-              width: "100%",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                width: isDesktop ? "416px" : "100%",
-                marginTop: "-4px",
-                height: "42px",
-                backgroundColor: "white",
-              }}
-            >
-              <Button
-                size="m"
-                stretched
-                before={<Icon28LocationMapOutline width={24} height={24} />}
-                style={{
-                  marginLeft: 8 + "px",
-                  marginBottom: "8px",
-                }}
-                onClick={() => {
-                  let a = document.createElement("a");
-                  Object.assign(a, {
-                    href: info.place_url,
-                    target: "_blank",
-                  });
-                  a.click();
-                }}
-              >
-                Google карты
-              </Button>
-
-              <Button
-                stretched
-                size="m"
-                mode={info.quiz ? "commerce" : "secondary"}
-                onClick={() => {
-                  if (info.quiz) {
-                    goNext({ type: "modal", name: "quiz" });
-                  }
-                }}
-                before={
-                  storage[info.id] == "complete" ? (
-                    <Icon28ChecksOutline width={24} height={24} />
-                  ) : (
-                    <Icon24LightbulbStarOutline width={24} height={24} />
-                  )
-                }
-                style={{
-                  marginLeft: 8 + "px",
-                  marginRight: 8 + "px",
-                  marginBottom: "8px",
-                }}
-              >
-                {info.quiz ? "Пройти Quiz" : "Quiz, уже скоро..."}
-              </Button>
-            </div>
-          </FixedLayout>
         </body>
       </ModalPage>
       <ModalMore
