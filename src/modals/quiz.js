@@ -197,6 +197,7 @@ const ModalQuiz = ({
   return (
     <ModalPage
       id="quiz"
+      dynamicContentHeightq
       onClose={() => {
         goBack();
       }}
@@ -272,11 +273,7 @@ const ModalQuiz = ({
         >
           {info.quiz.map((data, index) => {
             return (
-              <div
-                style={{
-                  width: isDesktop ? "416px" : window.innerWidth + "px",
-                }}
-              >
+              <div>
                 <Avatar
                   size={80}
                   style={{
@@ -331,7 +328,7 @@ const ModalQuiz = ({
                     }}
                   >
                     <Input
-                      placeholder="Ответки"
+                      placeholder="Ответ"
                       id={"input" + index}
                       type={data.input}
                       onKeyPress={(event) => {
@@ -386,11 +383,7 @@ const ModalQuiz = ({
               </div>
             );
           })}
-          <div
-            style={{
-              width: isDesktop ? "416px" : window.innerWidth + "px",
-            }}
-          >
+          <div>
             <Title
               level="1"
               weight="semibold"
@@ -413,11 +406,6 @@ const ModalQuiz = ({
             <img
               style={{
                 display: "block",
-                marginLeft: isDesktop
-                  ? 416 / 2 - 125 + "px"
-                  : window.innerWidth / 2 - 125 + "px",
-                width: "250px",
-                marginTop: "16px",
               }}
               src={
                 collect_right >= 5
