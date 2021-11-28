@@ -193,9 +193,10 @@ function generateBuildings({ map, setInfo, setModal, goNext }) {
           type: "ans",
         },
         {
-          question: `Сколько Ростральных колонн видно, если стоять рядом с Кунсткамерой? Укажите цифру.`,
+          question: `Сколько Ростральных колонн видно, если стоять рядом с Кунсткамерой?`,
           answer: "1",
           type: "write",
+          input: "number",
         },
       ],
     },
@@ -322,6 +323,7 @@ function generateBuildings({ map, setInfo, setModal, goNext }) {
           question: `Что держит ангел? Напишите слово с заглавной буквы.`,
           answer: "Факел",
           type: "write",
+          input: "text",
         },
       ],
     },
@@ -435,6 +437,7 @@ function generateBuildings({ map, setInfo, setModal, goNext }) {
           question: "Сколько корон имеет Двуглавый орёл над аркой?",
           answer: "3",
           type: "write",
+          input: "number",
         },
         {
           question:
@@ -444,9 +447,10 @@ function generateBuildings({ map, setInfo, setModal, goNext }) {
           type: "ans",
         },
         {
-          question: `Сколько зайцев встречают посетителя Петропавловская крепость`,
+          question: `Сколько зайцев встречают посетителя Петропавловская крепость?`,
           answer: "1",
           type: "write",
+          input: "number",
         },
       ],
     },
@@ -475,6 +479,7 @@ function generateBuildings({ map, setInfo, setModal, goNext }) {
             "Определите общую фамилию скульптур, находящихся ближе всего к Летнему дворцу Петра Великого. Укажите фамилию с заглавной буквы.",
           answer: "Собеский",
           type: "write",
+          input: "text",
         },
         {
           question: `Что стало причиной выбора названия "Летний сад"?`,
@@ -503,6 +508,7 @@ function generateBuildings({ map, setInfo, setModal, goNext }) {
           question: `Определите какой номер соответствует Летнему дворцу Петра Великого в квесте "Тайны летнего сада".`,
           answer: "8",
           type: "write",
+          input: "number",
         },
       ],
       more: (
@@ -806,10 +812,10 @@ function generateBuildings({ map, setInfo, setModal, goNext }) {
       ),
       quiz: [
         {
-          question:
-            "В какой год дворец был отреставрирован? В ответе укажите только цифры.",
+          question: "В какой год дворец был отреставрирован?",
           answer: "1981",
           type: "write",
+          input: "number",
         },
         {
           question: `Какой князь Меншиков на памятнике?`,

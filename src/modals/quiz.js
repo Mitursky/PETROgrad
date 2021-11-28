@@ -330,14 +330,23 @@ const ModalQuiz = ({
                       height: "40px",
                     }}
                   >
-                    <Input placeholder="Ответ" id={"input" + index} />
+                    <Input
+                      placeholder="Ответки"
+                      id={"input" + index}
+                      type={data.input}
+                      onKeyPress={(event) => {
+                        if (data.input !== "text" && !/[0-9]/.test(event.key)) {
+                          event.preventDefault();
+                        }
+                      }}
+                    />
                     <Button
                       size="m"
                       before={<Icon24ArrowRightSquareOutline />}
                       style={{ marginLeft: "8px" }}
                       onClick={() => {
                         answer(
-                          document.getElementById("input" + index).value,
+                          document.getElementById("input" + index).value.trim(),
                           data
                         );
                         setSlideIndex(slideIndex + 1);
