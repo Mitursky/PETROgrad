@@ -458,6 +458,12 @@ const ModalQuiz = ({
               before={<Icon28ReplayOutline width="20" height="20" />}
               style={{ marginTop: "8px", borderRadius: "16px" }}
               onClick={() => {
+                for (let i = 0; i < info.quiz.length; i++) {
+                  if (document.getElementById("input" + i)) {
+                    document.getElementById("input" + i).value = "";
+                  }
+                }
+                setInputValue(null);
                 setSlideIndex(0);
               }}
             >
