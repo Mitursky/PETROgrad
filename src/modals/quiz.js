@@ -19,6 +19,7 @@ import {
   SimpleCell,
   PanelHeaderButton,
   FixedLayout,
+  Spacing,
 } from "@vkontakte/vkui";
 import styled from "styled-components";
 import { useEffect, useState, Fragment } from "react";
@@ -200,7 +201,7 @@ const ModalQuiz = ({
   return (
     <ModalPage
       id="quiz"
-      dynamicContentHeightq
+      dynamicContentHeight
       onClose={() => {
         goBack();
       }}
@@ -268,7 +269,7 @@ const ModalQuiz = ({
         <Gallery
           slideWidth="100%"
           align="center"
-          style={{ height: "100%" }}
+          style={{ height: "auto" }}
           slideIndex={slideIndex}
           onChange={(slideIndex) => setSlideIndex(slideIndex)}
           isDraggable={false}
@@ -387,6 +388,7 @@ const ModalQuiz = ({
                     })}
                   </FormItem>
                 )}
+                <Spacing size="16px" />
               </div>
             );
           })}
@@ -412,6 +414,7 @@ const ModalQuiz = ({
             <img
               style={{
                 display: "block",
+                width: "100%",
               }}
               src={
                 collect_right >= 5
@@ -460,6 +463,7 @@ const ModalQuiz = ({
             >
               Пройти ещё раз
             </Button>
+            <Spacing size="16px" />
           </div>
         </Gallery>
       </Group>
