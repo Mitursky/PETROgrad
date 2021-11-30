@@ -276,7 +276,7 @@ const ModalQuiz = ({
         >
           {info.quiz.map((data, index) => {
             return (
-              <div>
+              <div style={{ cursor: "default" }}>
                 <Avatar
                   size={80}
                   style={{
@@ -390,7 +390,7 @@ const ModalQuiz = ({
               </div>
             );
           })}
-          <div>
+          <div style={{ cursor: "default" }}>
             <Title
               level="1"
               weight="semibold"
@@ -398,7 +398,6 @@ const ModalQuiz = ({
             >
               Quiz пройден
             </Title>
-
             <Text
               weight="regular"
               style={{
