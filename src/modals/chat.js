@@ -210,7 +210,7 @@ const ModalChat = ({
           <img
             src={info.src}
             height={"200px"}
-            width={window.innerWidth + "px"}
+            width={"100%"}
             style={{
               objectFit: "cover",
               borderRadius: "8px",

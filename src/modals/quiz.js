@@ -87,7 +87,9 @@ const ModalQuiz = ({
 }) => {
   const platform = usePlatform();
 
+  const [inputValue, setInputValue] = useState(null);
   const [slideIndex, setSlideIndex] = useState(0);
+
   const makeStory = () => {
     const canvas = document.createElement("canvas");
 
@@ -110,7 +112,8 @@ const ModalQuiz = ({
         ctx.drawImage(ava, 820, 600, 200, 200);
         ctx.globalCompositeOperation = "destination-over";
 
-        ctx.font = '55pt "Times New Roman Bold"';
+        ctx.font =
+          (collect_right < 2 ? "45pt " : "55pt ") + '"Times New Roman Bold"';
         ctx.fontWeight = "Bold";
         ctx.lineHeight = "69px";
 
@@ -331,22 +334,26 @@ const ModalQuiz = ({
                       placeholder="Ответ"
                       id={"input" + index}
                       type={data.input}
+                      min={0}
                       onKeyPress={(event) => {
                         if (data.input !== "text" && !/[0-9]/.test(event.key)) {
                           event.preventDefault();
                         }
+                      }}
+                      onChange={(event) => {
+                        setInputValue(event.target.value.trim());
                       }}
                     />
                     <Button
                       size="m"
                       before={<Icon24ArrowRightSquareOutline />}
                       style={{ marginLeft: "8px" }}
+                      disabled={!inputValue}
                       onClick={() => {
-                        answer(
-                          document.getElementById("input" + index).value.trim(),
-                          data
-                        );
-                        setSlideIndex(slideIndex + 1);
+                        if (inputValue) {
+                          answer(inputValue, data);
+                          setSlideIndex(slideIndex + 1);
+                        }
                       }}
                     ></Button>
                   </FormItem>
