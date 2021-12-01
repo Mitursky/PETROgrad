@@ -363,8 +363,9 @@ const ModalQuiz = ({
                     style={{
                       width: "250px",
                       margin: "auto",
-                      display: "block",
-                      marginBottom: "-8px",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
                     }}
                   >
                     {data.answers.map((data_ans) => {
@@ -379,7 +380,7 @@ const ModalQuiz = ({
                           style={{
                             borderRadius: "50px",
                             marginTop: "8px",
-                            marginRight: "4px",
+                            width: "fit-content",
                           }}
                         >
                           {data_ans}
