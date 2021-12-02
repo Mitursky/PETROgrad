@@ -82,6 +82,14 @@ function createMarker({
       me.remove();
     }
 
+    const popup = new mapboxgl.Popup({
+      closeButton: false,
+      closeOnClick: false,
+    }).setHTML('<span style="font-size: 1.25em">Это вы!</span>');
+
+    el.addEventListener("mouseenter", () => me.setPopup(popup));
+    el.addEventListener("mouseleave", () => popup.remove());
+
     me = new mapboxgl.Marker(el).setLngLat([lng, lat]).addTo(map);
   } else {
     marker = new mapboxgl.Marker(el).setLngLat([lng, lat]).addTo(map);
