@@ -241,12 +241,14 @@ const ModalQuiz = ({
       <body
         id="yes"
         style={{
+          width: "100%",
           position: "absolute",
           zIndex: "10",
           opacity: "0",
           pointerEvents: "none",
-          marginLeft: window.innerWidth / 2 - 40 + "px",
-          marginTop: "40%",
+          display: "flex",
+          justifyContent: "center",
+          top: "40%",
         }}
       >
         <Icon28CheckCircleFill width={80} height={80} />
@@ -254,12 +256,14 @@ const ModalQuiz = ({
       <body
         id="no"
         style={{
+          width: "100%",
           position: "absolute",
           zIndex: "10",
           opacity: "0",
           pointerEvents: "none",
-          marginLeft: window.innerWidth / 2 - 40 + "px",
-          marginTop: "40%",
+          display: "flex",
+          justifyContent: "center",
+          top: "40%",
         }}
       >
         <Icon28CancelCircleFillRed width={80} height={80} />
@@ -269,7 +273,11 @@ const ModalQuiz = ({
         <Gallery
           slideWidth="100%"
           align="center"
-          style={{ height: "auto" }}
+          style={{
+            height: "auto",
+            userSelect: "none",
+            webkitUserSelect: "none",
+          }}
           slideIndex={slideIndex}
           onChange={(slideIndex) => setSlideIndex(slideIndex)}
           isDraggable={false}
@@ -337,6 +345,11 @@ const ModalQuiz = ({
                       type={data.input}
                       min={0}
                       onKeyPress={(event) => {
+                        if (event.key === "Enter" && inputValue) {
+                          event.preventDefault();
+                          answer(inputValue, data);
+                          setSlideIndex(slideIndex + 1);
+                        }
                         if (data.input !== "text" && !/[0-9]/.test(event.key)) {
                           event.preventDefault();
                         }
