@@ -88,7 +88,7 @@ const MainPanel = ({
       center: [lng, lat],
       zoom: 12,
       maxZoom: 20,
-      minZoom: 8,
+      minZoom: 1,
     });
     let buildings = generateBuildings({ map, setInfo, setModal, goNext });
     for (let i in buildings) {

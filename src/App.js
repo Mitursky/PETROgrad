@@ -55,7 +55,7 @@ function App() {
   const setStorageData = (key, value) => {
     bridge.send("VKWebAppStorageSet", { key: key, value: value });
   };
-  //setStorageData("hello", "false");
+
   //setStorageData("hello", "false");
 
   let goBack;

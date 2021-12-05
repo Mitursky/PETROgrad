@@ -24,114 +24,109 @@ const HelloPanel = ({ setStorageData, setActivePanel }) => {
     <Panel id="hello">
       <Gallery
         slideWidth="100%"
-        style={{ height: window.innerHeight + "px" }}
+        style={{ height: "100vh" }}
         bullets="dark"
         slideIndex={slideIndex}
         onChange={(e) => {
           setSlideIndex(e);
         }}
       >
-        <div
+        <Placeholder
           style={{
-            backgroundColor: "white",
-            height: window.innerHeight + "px",
-          }}
-        >
-          <Placeholder
-            style={{
-              pointerEvents: "none",
-              marginTop: window.innerHeight / 2 - 200 + "px",
-            }}
-            icon={<img src={petrograd} height={120} />}
-            header={"PETROград"}
-          >
-            Мини-квест по местам <br />
-            Петровского Петербурга
-            <body style={{ fontSize: "14px", marginTop: "24px" }}>
-              К 350-летию Петра I <br /> в 2022г.
-            </body>
-          </Placeholder>
-        </div>
-
-        <div
-          style={{
+            pointerEvents: "none",
             backgroundColor: "white",
           }}
+          icon={<img src={petrograd} height={120} />}
+          header={"PETROград"}
         >
-          <Placeholder
-            style={{
-              pointerEvents: "none",
-            }}
-            icon={
-              <img
-                src={map}
-                width={"150%"}
-                style={{
-                  position: "absolute",
-                  marginLeft: -window.innerWidth + 80 + "px",
-                  marginTop: "100px",
-                }}
-              />
-            }
-            header={
-              <body style={{ fontSize: "35px", marginBottom: "20px" }}>
-                Маршрут
-              </body>
-            }
-          >
-            Посетите 5 значимых мест Петровского Петербурга и найдите ответы на
-            все вопросы своими глазами!
-          </Placeholder>
-        </div>
+          Мини-квест по местам <br />
+          Петровского Петербурга
+          <div style={{ fontSize: "14px", marginTop: "24px" }}>
+            К 350-летию Петра I <br /> в 2022г.
+          </div>
+        </Placeholder>
 
-        <div style={{ backgroundColor: "white" }}>
-          <Placeholder
-            style={{
-              pointerEvents: "none",
-            }}
-            icon={
-              <img
-                src={quiz}
-                width={"150%"}
-                style={{
-                  position: "absolute",
-                  marginLeft: -window.innerWidth + 80 + "px",
-                  marginTop: "100px",
-                }}
-              />
-            }
-            header={
-              <body style={{ fontSize: "35px", marginBottom: "20px" }}>
-                Quiz
-              </body>
-            }
-          >
-            Попробуйте найти ответы на нестандартные вопросы и провести время с
-            пользой!
-          </Placeholder>
-        </div>
-      </Gallery>
-      <Button
-        size="l"
-        onClick={() => {
-          if (slideIndex == 2) {
-            setStorageData("hello", "true");
-            setActivePanel("main");
-            bridge.send("VKWebAppGetGeodata");
-          } else {
-            setSlideIndex(slideIndex + 1);
+        <Placeholder
+          style={{
+            pointerEvents: "none",
+            backgroundColor: "white",
+            display: "block",
+          }}
+          icon={
+            <img
+              src={map}
+              style={{
+                position: "absolute",
+                top: "30%",
+                left: "100%",
+                width: "100%",
+              }}
+            />
           }
-        }}
+          header={
+            <body style={{ fontSize: "35px", marginBottom: "20px" }}>
+              Маршрут
+            </body>
+          }
+        >
+          Посетите 5 значимых мест Петровского Петербурга и найдите ответы на
+          все вопросы своими глазами!
+        </Placeholder>
+
+        <Placeholder
+          style={{
+            pointerEvents: "none",
+            backgroundColor: "white",
+            display: "block",
+          }}
+          icon={
+            <img
+              src={quiz}
+              style={{
+                position: "absolute",
+                top: "30%",
+                left: "200%",
+                width: "100%",
+              }}
+            />
+          }
+          header={
+            <body style={{ fontSize: "35px", marginBottom: "20px" }}>Quiz</body>
+          }
+        >
+          Попробуйте найти ответы на нестандартные вопросы и провести время с
+          пользой!
+        </Placeholder>
+      </Gallery>
+      <div
         style={{
-          marginTop: "-75px",
-          width: "250px",
-          borderRadius: "16px",
-          marginLeft: window.innerWidth / 2 - 125 + "px",
-          backgroundColor: "var(--accent)",
+          position: "absolute",
+          left: 0,
+          right: 0,
+          textAlign: "center",
+          bottom: "48px",
         }}
       >
-        Далее
-      </Button>
+        <Button
+          size="l"
+          onClick={() => {
+            if (slideIndex == 2) {
+              setStorageData("hello", "true");
+              setActivePanel("main");
+              bridge.send("VKWebAppGetGeodata");
+            } else {
+              setSlideIndex(slideIndex + 1);
+            }
+          }}
+          style={{
+            width: "250px",
+            borderRadius: "16px",
+            backgroundColor: "var(--accent)",
+          }}
+        >
+          Далее
+        </Button>
+      </div>
     </Panel>
   );
 };
