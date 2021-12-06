@@ -505,7 +505,7 @@ function generateBuildings({ map, setInfo, setModal, goNext }) {
           type: "ans",
         },
         {
-          question: `Определите какой номер соответствует Летнему дворцу Петра Великого в квесте "Тайны летнего сада".`,
+          question: `Определите, какой номер соответствует Летнему дворцу Петра Великого в квесте "Тайны летнего сада".`,
           answer: "8",
           type: "write",
           input: "number",
