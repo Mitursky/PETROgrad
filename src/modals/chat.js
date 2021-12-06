@@ -31,7 +31,7 @@ import { Socket } from "socket.io";
 import { tSEnumDeclaration } from "@babel/types";
 import "../css/ModalPageHeader.css";
 import { ModalMore } from "./more";
-import { ModalQuiz } from "./quiz";
+import ModalQuiz from "./quiz";
 import { getNodeText } from "@testing-library/dom";
 import bridge from "@vkontakte/vk-bridge";
 

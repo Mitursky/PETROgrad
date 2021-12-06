@@ -20,6 +20,7 @@ import {
   PanelHeaderButton,
   FixedLayout,
   Spacing,
+  withModalRootContext,
 } from "@vkontakte/vkui";
 import styled from "styled-components";
 import { useEffect, useState, Fragment } from "react";
@@ -43,7 +44,9 @@ import ok from "../img/ok.png";
 import best from "../img/best.png";
 import "../css/ModalPageHeader.css";
 import background from "../img/story.png";
+import camera_200 from "../img/camera_200.png";
 import bridge from "@vkontakte/vk-bridge";
+
 let flyBack;
 let collect_right = 0;
 let isDesktop =
@@ -145,7 +148,11 @@ const ModalQuiz = ({
           },
         });
       };
-      circle.onload = () => (ava.src = user.photo_200);
+      circle.onload = () =>
+        (ava.src =
+          user.photo_200 !== "https://vk.com/images/camera_200.png"
+            ? user.photo_200
+            : camera_200);
       console.log(user);
       img.onload = () =>
         (circle.src =
@@ -348,6 +355,7 @@ const ModalQuiz = ({
                         if (event.key === "Enter" && inputValue) {
                           event.preventDefault();
                           answer(inputValue, data);
+                          setInputValue(null);
                           setSlideIndex(slideIndex + 1);
                         }
                         if (data.input !== "text" && !/[0-9]/.test(event.key)) {
@@ -366,6 +374,7 @@ const ModalQuiz = ({
                       onClick={() => {
                         if (inputValue) {
                           answer(inputValue, data);
+                          setInputValue(null);
                           setSlideIndex(slideIndex + 1);
                         }
                       }}
@@ -491,4 +500,4 @@ const ModalQuiz = ({
   );
 };
 
-export { ModalQuiz };
+export default withModalRootContext(ModalQuiz);

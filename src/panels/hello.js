@@ -33,6 +33,7 @@ const HelloPanel = ({ setStorageData, setActivePanel }) => {
       >
         <Placeholder
           style={{
+            paddingTop: "32px",
             pointerEvents: "none",
             backgroundColor: "white",
           }}
@@ -48,21 +49,11 @@ const HelloPanel = ({ setStorageData, setActivePanel }) => {
 
         <Placeholder
           style={{
+            paddingTop: "32px",
             pointerEvents: "none",
             backgroundColor: "white",
             display: "block",
           }}
-          icon={
-            <img
-              src={map}
-              style={{
-                position: "absolute",
-                top: "30%",
-                left: "100%",
-                width: "100%",
-              }}
-            />
-          }
           header={
             <body style={{ fontSize: "35px", marginBottom: "20px" }}>
               Маршрут
@@ -71,31 +62,57 @@ const HelloPanel = ({ setStorageData, setActivePanel }) => {
         >
           Посетите 5 значимых мест Петровского Петербурга и найдите ответы на
           все вопросы своими глазами!
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+            }}
+          >
+            <img
+              src={map}
+              style={{
+                marginTop: "32px",
+                width: "100%",
+                maxWidth: "500px",
+              }}
+            />
+          </div>
         </Placeholder>
 
         <Placeholder
           style={{
+            paddingTop: "32px",
             pointerEvents: "none",
             backgroundColor: "white",
             display: "block",
           }}
-          icon={
-            <img
-              src={quiz}
-              style={{
-                position: "absolute",
-                top: "30%",
-                left: "200%",
-                width: "100%",
-              }}
-            />
-          }
           header={
             <body style={{ fontSize: "35px", marginBottom: "20px" }}>Quiz</body>
           }
         >
           Попробуйте найти ответы на нестандартные вопросы и провести время с
           пользой!
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+            }}
+          >
+            <img
+              src={quiz}
+              style={{
+                marginTop: "32px",
+                width: "100%",
+                maxWidth: "500px",
+              }}
+            />
+          </div>
         </Placeholder>
       </Gallery>
       <div

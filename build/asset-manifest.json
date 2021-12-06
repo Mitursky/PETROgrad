@@ -1,33 +1,34 @@
 {
   "files": {
     "main.css": "/static/css/main.2aa6df3c.chunk.css",
-    "main.js": "/static/js/main.be57a79c.chunk.js",
-    "runtime-main.js": "/static/js/runtime-main.7ca62d92.js",
+    "main.js": "/static/js/main.d20c6e17.chunk.js",
+    "runtime-main.js": "/static/js/runtime-main.4e9cee8c.js",
     "static/css/2.d6f3eacd.chunk.css": "/static/css/2.d6f3eacd.chunk.css",
-    "static/js/2.aa183ead.chunk.js": "/static/js/2.aa183ead.chunk.js",
-    "static/js/3.91ae37c1.chunk.js": "/static/js/3.91ae37c1.chunk.js",
+    "static/js/2.cafb3b6f.chunk.js": "/static/js/2.cafb3b6f.chunk.js",
+    "static/js/3.c516f306.chunk.js": "/static/js/3.c516f306.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.aa183ead.chunk.js.LICENSE.txt": "/static/js/2.aa183ead.chunk.js.LICENSE.txt",
+    "static/js/2.cafb3b6f.chunk.js.LICENSE.txt": "/static/js/2.cafb3b6f.chunk.js.LICENSE.txt",
     "static/media/bad.72cf85d1.png": "/static/media/bad.72cf85d1.png",
     "static/media/best.66183336.png": "/static/media/best.66183336.png",
+    "static/media/camera_200.77e62bce.png": "/static/media/camera_200.77e62bce.png",
     "static/media/kunst.215aac9c.png": "/static/media/kunst.215aac9c.png",
-    "static/media/map.5730376e.png": "/static/media/map.5730376e.png",
+    "static/media/map.f8d28af0.png": "/static/media/map.f8d28af0.png",
     "static/media/men_dvor.c5cb02a2.png": "/static/media/men_dvor.c5cb02a2.png",
     "static/media/mitursky.881c95c6.png": "/static/media/mitursky.881c95c6.png",
     "static/media/ok.7a8ab5f7.png": "/static/media/ok.7a8ab5f7.png",
     "static/media/pet_krep.751e84eb.png": "/static/media/pet_krep.751e84eb.png",
     "static/media/petrograd.304faa18.png": "/static/media/petrograd.304faa18.png",
-    "static/media/quiz.301aad54.png": "/static/media/quiz.301aad54.png",
+    "static/media/quiz.4adc44ff.png": "/static/media/quiz.4adc44ff.png",
     "static/media/sad.4cc5ad6a.png": "/static/media/sad.4cc5ad6a.png",
     "static/media/story.9036dec6.png": "/static/media/story.9036dec6.png",
     "static/media/verybad.515b91a3.png": "/static/media/verybad.515b91a3.png",
     "static/media/zdanie12.b2aacc30.png": "/static/media/zdanie12.b2aacc30.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.7ca62d92.js",
+    "static/js/runtime-main.4e9cee8c.js",
     "static/css/2.d6f3eacd.chunk.css",
-    "static/js/2.aa183ead.chunk.js",
+    "static/js/2.cafb3b6f.chunk.js",
     "static/css/main.2aa6df3c.chunk.css",
-    "static/js/main.be57a79c.chunk.js"
+    "static/js/main.d20c6e17.chunk.js"
   ]
 }

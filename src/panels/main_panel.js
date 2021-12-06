@@ -170,7 +170,7 @@ const MainPanel = ({
       <div
         ref={mapContainer}
         className="map-container"
-        style={{ height: window.innerHeight + "px" }}
+        style={{ width: "100vw", height: "100vh" }}
       />
 
       <FixedLayout vertical="bottom" style={{ overflow: "visible" }}>
